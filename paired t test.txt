@@ -1,0 +1,39 @@
+
+import scipy.stats as stats
+import numpy as np
+
+# Given data
+before_training = [3000, 3200, 3100, 3300, 3400, 3000, 3100, 3200, 3400, 3300]
+after_training = [3500, 3800, 3650, 4000, 4050, 3500, 3650, 3800, 4050, 4000]
+
+# Calculate differences
+differences = np.array(after_training) - np.array(before_training)
+
+# Calculate the mean difference
+mean_difference = np.mean(differences)
+
+# Calculate the standard deviation of the differences
+std_difference = np.std(differences, ddof=1)
+
+# Sample size
+n = len(differences)
+
+# Calculate the t statistic
+t_statistic = mean_difference / (std_difference / np.sqrt(n))
+
+# Degrees of freedom
+df = n - 1
+
+# Calculate the p-value for a two-tailed test
+p_value = 2 * (1 - stats.t.cdf(abs(t_statistic), df))
+
+# Output results
+print(f"T-Statistic: {t_statistic}")
+print(f"P-Value: {p_value}")
+
+# Decision based on significance level
+alpha = 0.05
+if p_value < alpha:
+    print("Reject the null hypothesis.")
+else:
+    print("Fail to reject the null hypothesis.")

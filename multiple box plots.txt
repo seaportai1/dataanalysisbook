@@ -1,0 +1,28 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Create a DataFrame
+df = pd.read_csv('/content/Sales Data Across Regions.csv')
+
+# Create box plots for each region
+fig, ax = plt.subplots(figsize=(12, 8))
+
+# Colors for each region
+colors = ['blue', 'green', 'red', 'purple']
+# Unique regions
+unique_regions = df['Region'].unique()
+
+# Plot box plots for each region
+for i, region in enumerate(unique_regions):
+    region_data = df[df['Region'] == region]['Sales']
+    plt.boxplot(region_data, positions=[i + 1], patch_artist=True, boxprops=dict(facecolor=colors[i]))
+
+# Set x-ticks to region names
+plt.xticks(range(1, len(unique_regions) + 1), unique_regions)
+
+# Labels and title
+plt.title('Sales Data by Region')
+plt.xlabel('Region')
+plt.ylabel('Sales')
+plt.grid(True)
+plt.show()

@@ -1,0 +1,27 @@
+import pandas as pd
+import statsmodels.api as sm
+from statsmodels.formula.api import ols
+
+# Given data
+data = {
+    'Sales': [45, 47, 46, 50, 52, 51, 48, 49, 50, 55, 54, 56, 52, 51, 53, 57, 59, 58, 55, 54, 56, 60, 62, 61],
+    'Region': ['North', 'North', 'North', 'North', 'North', 'North', 'South', 'South', 'South', 'South', 'South', 'South', 'East', 'East', 'East', 'East', 'East', 'East', 'West', 'West', 'West', 'West', 'West', 'West'],
+    'Strategy': ['A', 'A', 'A', 'B', 'B', 'B', 'A', 'A', 'A', 'B', 'B', 'B', 'A', 'A', 'A', 'B', 'B', 'B', 'A', 'A', 'A', 'B', 'B', 'B']
+}
+
+# Create DataFrame
+df = pd.DataFrame(data)
+
+# Fit the two-way ANOVA model
+model = ols('Sales ~ C(Region) + C(Strategy) + C(Region):C(Strategy)', data=df).fit()
+anova_table = sm.stats.anova_lm(model, typ=2)
+
+# Output results
+print(anova_table)
+
+# Decision based on significance level
+alpha = 0.05
+if any(anova_table['PR(>F)'] < alpha):
+    print("Reject the null hypothesis for the factors with p-value < 0.05.")
+else:
+    print("Fail to reject the null hypothesis for all factors.")

@@ -1,0 +1,33 @@
+# Step 4: Identifying and handling outliers with log transformation
+outliers_summary = {}
+
+for column in data.columns:
+    if data[column].dtype in ['float64', 'int64']:
+        # Calculate IQR
+        Q1 = data[column].quantile(0.25)
+        Q3 = data[column].quantile(0.75)
+        IQR = Q3 - Q1
+        
+        # Define outliers
+        lower_bound = Q1 - 1.5 * IQR
+        upper_bound = Q3 + 1.5 * IQR
+        
+        # Find outliers
+        outliers_before = data[(data[column] < lower_bound) | (data[column] > upper_bound)]
+        outlier_count_before = len(outliers_before)
+
+        # Log transformation for outliers
+        data[column] = np.where((data[column] < lower_bound) | (data[column] > upper_bound),
+                                np.log1p(data[column]), data[column])
+
+        # Recalculate outliers post-transformation
+        outliers_after = data[(data[column] < lower_bound) | (data[column] > upper_bound)]
+        outlier_count_after = len(outliers_after)
+
+        # Store the counts before and after in the summary dictionary
+        outliers_summary[column] = (outlier_count_before, outlier_count_after)
+
+# Output the summary of outliers before and after transformation
+print("Summary of outliers before and after log transformation:")
+for col, counts in outliers_summary.items():
+    print(f"{col}: Before - {counts[0]}, After - {counts[1]}")

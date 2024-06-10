@@ -1,0 +1,25 @@
+import scipy.stats as stats
+import numpy as np
+
+# Given data
+sample_mean = 71.5
+population_mean = 70
+population_std = 4
+sample_size = 50
+
+# Calculate the Z statistic
+z_statistic = (sample_mean - population_mean) / (population_std / np.sqrt(sample_size))
+
+# Calculate the p-value for a two-tailed test
+p_value = 2 * (1 - stats.norm.cdf(abs(z_statistic)))
+
+# Output results
+print(f"Z-Statistic: {z_statistic}")
+print(f"P-Value: {p_value}")
+
+# Decision based on significance level
+alpha = 0.05
+if p_value < alpha:
+    print("Reject the null hypothesis.")
+else:
+    print("Fail to reject the null hypothesis.")

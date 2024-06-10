@@ -1,0 +1,12 @@
+import scipy.stats as stats
+
+# Degrees of freedom
+df = 2
+
+# Calculated chi-square statistic
+chi2_stat = 1.1403
+
+# Calculate p-value
+p_value = 1 - stats.chi2.cdf(chi2_stat, df)
+
+print(f"P-Value: {p_value}")

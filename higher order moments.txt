@@ -1,0 +1,25 @@
+#Computing higher order moments programmatically.
+import numpy as np
+
+# Generating some data
+data = [
+    300, 223, 286, 425, 563, 448, 870, 759, 863, 502, 445, 610, 246, 247, 963, 
+    810, 919, 588, 739, 650, 437, 971, 740, 878, 572, 250, 514, 397, 710, 362,
+    863, 243, 445, 723, 671, 980, 101, 996, 403, 353, 751, 552, 136, 259, 108,
+    332, 198, 758, 915, 307, 230, 503, 251, 153, 219, 772, 727, 686, 724, 519,
+    521, 203, 951, 353, 326, 211, 609, 572, 198, 252, 960, 995, 977, 437, 805,
+    921, 262, 819, 780, 260, 679, 900, 497, 376, 915, 603, 995, 491, 234, 294,
+    500, 739, 132, 787, 559, 982, 569, 474, 121, 849
+]
+
+# Compute higher moments manually
+def higher_moment(data, k):
+    mean = np.mean(data)
+    return np.mean((data - mean)**k)
+
+# Compute the 5th and 6th moments
+fifth_moment = higher_moment(data, 5)
+sixth_moment = higher_moment(data, 6)
+
+print("Fifth Moment: ", fifth_moment)
+print("Sixth Moment: ", sixth_moment)

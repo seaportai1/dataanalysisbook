@@ -1,0 +1,20 @@
+#Basic EDA using python program
+
+# Step 1: Load the data
+data = pd.read_csv('/content/census.csv')
+
+# Step 2: Count and display the number of records with actual missing values
+print("Number of records with missing values in each column:")
+missing_values_count = data.isna().sum()
+print(missing_values_count)
+
+# Step 3: Replace NaN with the mean for numerical columns and mode for categorical columns
+for column in data.columns:
+    if data[column].dtype in ['float64', 'int64']:  # Check if column is numerical
+        # Replace NaN with the mean
+        mean_value = data[column].mean()
+        data[column].fillna(mean_value, inplace=True)
+    else:  # Column is categorical
+        # Replace NaN with the mode (Note: mode()[0] is used because mode() can return multiple values)
+        mode_value = data[column].mode()[0]
+        data[column].fillna(mode_value, inplace=True)

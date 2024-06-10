@@ -1,0 +1,19 @@
+import numpy as np
+from scipy.stats import mannwhitneyu
+
+# Data
+group_A = [85, 78, 92, 88, 76]
+group_B = [90, 82, 89, 91, 77]
+
+# Perform Mann-Whitney U Test
+stat, p_value = mannwhitneyu(group_A, group_B)
+
+print(f"Mann-Whitney U Test Statistic: {stat}")
+print(f"P-Value: {p_value}")
+
+# Interpretation
+alpha = 0.05
+if p_value < alpha:
+    print("Reject the null hypothesis. There is a significant difference between the strategies.")
+else:
+    print("Fail to reject the null hypothesis. There is no significant difference between the strategies.")

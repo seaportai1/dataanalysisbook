@@ -1,0 +1,28 @@
+import scipy.stats as stats
+import numpy as np
+
+# Given data
+sample_mean = 55000
+population_mean = 50000
+sample_std = 8000
+sample_size = 10
+
+# Calculate the t statistic
+t_statistic = (sample_mean - population_mean) / (sample_std / np.sqrt(sample_size))
+
+# Degrees of freedom
+df = sample_size - 1
+
+# Calculate the p-value for a two-tailed test
+p_value = 2 * (1 - stats.t.cdf(abs(t_statistic), df))
+
+# Output results
+print(f"T-Statistic: {t_statistic}")
+print(f"P-Value: {p_value}")
+
+# Decision based on significance level
+alpha = 0.05
+if p_value < alpha:
+    print("Reject the null hypothesis.")
+else:
+    print("Fail to reject the null hypothesis.")

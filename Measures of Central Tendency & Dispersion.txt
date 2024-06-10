@@ -1,0 +1,26 @@
+#Python Code for Measures of Central Tendency & Dispersion
+import statistics
+
+# List of ages
+ages = [13, 15, 16, 14, 13, 15, 17, 18, 16, 14]
+
+# Calculating measures of central tendency
+mean_age = statistics.mean(ages)
+median_age = statistics.median(ages)
+mode_age = statistics.mode(ages)
+
+# Calculating measures of dispersion
+range_age = max(ages) - min(ages)
+variance_age = statistics.variance(ages)
+std_dev_age = statistics.stdev(ages)
+
+# Printing the results
+print("Measures of Central Tendency")
+print("Mean:", mean_age)
+print("Median:", median_age)
+print("Mode:", mode_age)
+
+print("\nMeasures of Dispersion")
+print("Range:", range_age)
+print("Variance:", variance_age)
+print("Standard Deviation:", std_dev_age)

@@ -1,0 +1,17 @@
+# Programmatic calculation of Quartiles for the sales data
+import numpy as np
+
+# Given sales data
+sales_data = [300, 223, 286, 425, 563, 448, 870, 759, 863, 502, 445, 610, 246, 247, 963, 810, 919, 588, 739, 650, 437, 971, 740, 878, 572, 250, 514, 397, 710, 362, 863, 243, 445, 723, 671, 980, 101, 996, 403, 353, 751, 552, 136, 259, 108, 332, 198, 758, 915, 307]
+
+# Calculate quartiles and 80th percentile
+Q1 = np.percentile(sales_data, 25)
+Q2 = np.percentile(sales_data, 50)
+Q3 = np.percentile(sales_data, 75)
+P80 = np.percentile(sales_data, 80)
+
+print("Quartiles of Sales Data:")
+print("Q1 (25th percentile):", Q1)
+print("Q2 (50th percentile/median):", Q2)
+print("Q3 (75th percentile):", Q3)
+print("80th percentile:", P80)

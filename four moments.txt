@@ -1,0 +1,51 @@
+#Computing the four moments and drawing inferences programmatically for sales data
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import kurtosis, skew
+
+# Provided sales data
+sales_data = [
+    300, 223, 286, 425, 563, 448, 870, 759, 863, 502, 445, 610, 246, 247, 963, 
+    810, 919, 588, 739, 650, 437, 971, 740, 878, 572, 250, 514, 397, 710, 362,
+    863, 243, 445, 723, 671, 980, 101, 996, 403, 353, 751, 552, 136, 259, 108,
+    332, 198, 758, 915, 307, 230, 503, 251, 153, 219, 772, 727, 686, 724, 519,
+    521, 203, 951, 353, 326, 211, 609, 572, 198, 252, 960, 995, 977, 437, 805,
+    921, 262, 819, 780, 260, 679, 900, 497, 376, 915, 603, 995, 491, 234, 294,
+    500, 739, 132, 787, 559, 982, 569, 474, 121, 849
+]
+
+# Calculate skewness and kurtosis
+data_skewness = skew(sales_data)
+data_kurtosis = kurtosis(sales_data)  # Returns excess kurtosis
+
+# Define functions for interpreting skewness and kurtosis
+def interpret_skew(skew_value):
+    if skew_value > 1:
+        return "Highly positive skew."
+    elif 0.5 < skew_value <= 1:
+        return "Moderately positive skew."
+    elif -0.5 <= skew_value <= 0.5:
+        return "Approximately symmetric."
+    elif -1 <= skew_value < -0.5:
+        return "Moderately negative skew."
+    else:
+        return "Highly negative skew."
+
+def interpret_kurtosis(kurt_value):
+    if kurt_value > 3:
+        return "Leptokurtic (heavy tails)."
+    elif kurt_value < 3:
+        return "Platykurtic (light tails)."
+    else:
+        return "Mesokurtic (normal tails)."
+
+# Print results and interpretations
+print(f"Skewness of the sales data: {data_skewness:.2f}, Interpretation: {interpret_skew(data_skewness)}")
+print(f"Kurtosis of the sales data: {data_kurtosis:.2f}, Interpretation: {interpret_kurtosis(data_kurtosis)}")
+
+# Plot histogram to visualize the distribution
+plt.hist(sales_data, bins=30, color='blue', alpha=0.7, edgecolor='black')
+plt.title('Distribution of Sales Data')
+plt.xlabel('Sales')
+plt.ylabel('Frequency')
+plt.show()

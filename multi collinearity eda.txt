@@ -1,0 +1,27 @@
+# Step 5: Compute the correlation matrix for numeric variables
+numeric_data = data.select_dtypes(include=['float64', 'int64'])
+correlation_matrix = numeric_data.corr()
+print("Correlation matrix between numeric variables:")
+print(correlation_matrix)
+
+# Display the correlation matrix
+plt.figure(figsize=(10, 8))
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt=".2f")
+plt.title('Correlation Matrix of Numeric Variables')
+plt.show()
+
+# Step 6: Check for multicollinearity
+from statsmodels.stats.outliers_influence import variance_inflation_factor
+
+# Function to calculate VIF for each feature
+def calculate_vif(df):
+    vif_data = pd.DataFrame()
+    vif_data['Feature'] = df.columns
+    
+    # Calculating VIF for each feature
+    vif_data['VIF'] = [variance_inflation_factor(df.values, i) for i in range(df.shape[1])]
+    return vif_data
+
+vif_values = calculate_vif(numeric_data.dropna())
+print("VIF values to check for multicollinearity:")
+print(vif_values)

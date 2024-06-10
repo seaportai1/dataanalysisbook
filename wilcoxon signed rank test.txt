@@ -1,0 +1,17 @@
+import scipy.stats as stats
+import numpy as np
+
+# Define the test statistic (W) and sample size (n)
+W = 3  
+n = 5  
+
+# Generate all possible combinations of ranks
+all_ranks = [list(x) for x in np.ndindex((2,) * n)]  
+all_sums = [sum([abs(i) for i in ranks]) for ranks in all_ranks]
+
+# Filter out sums that are greater than W
+smaller_sums = [s for s in all_sums if s <= W]
+
+# Calculate the p-value
+p_value = len(smaller_sums) / len(all_sums)
+print(f"P-value for W = {W}, n = {n}: {p_value}")

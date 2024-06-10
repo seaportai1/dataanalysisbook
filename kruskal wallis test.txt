@@ -1,0 +1,20 @@
+import numpy as np
+from scipy.stats import kruskal
+
+# Data
+group_A = [85, 78, 92, 88, 76]
+group_B = [90, 82, 89, 91, 77]
+group_C = [79, 85, 87, 84, 80]
+
+# Perform Kruskal-Wallis Test
+stat, p_value = kruskal(group_A, group_B, group_C)
+
+print(f"Kruskal-Wallis Test Statistic: {stat}")
+print(f"P-Value: {p_value}")
+
+# Interpretation
+alpha = 0.05
+if p_value < alpha:
+    print("Reject the null hypothesis. There is a significant difference between the groups.")
+else:
+    print("Fail to reject the null hypothesis. There is no significant difference between the groups.")

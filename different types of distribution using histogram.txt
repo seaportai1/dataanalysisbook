@@ -1,0 +1,47 @@
+#Python code to visualize different types of distribution using histogram
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Generate data for different distributions
+data_normal = np.random.normal(loc=0, scale=1, size=1000)  # Normal distribution
+data_pos_skewed = np.random.exponential(scale=1, size=1000)  # Positively skewed (exponential) distribution
+data_uniform = np.random.uniform(low=-2, high=2, size=1000)  # Uniform distribution
+data_log_normal = np.random.lognormal(mean=0, sigma=1, size=1000)  # Log-normal distribution
+data_neg_skewed = -np.random.exponential(scale=1, size=1000)  # Negatively skewed (inverted exponential) distribution
+
+# Generate bimodal data
+data_bimodal_1 = np.random.normal(-3, 1, 500)  # First component of the bimodal distribution
+data_bimodal_2 = np.random.normal(3, 1, 500)  # Second component of the bimodal distribution
+data_bimodal = np.concatenate((data_bimodal_1, data_bimodal_2))  # Full bimodal distribution
+
+# Plotting the distributions
+plt.figure(figsize=(12, 12))
+
+plt.subplot(2, 3, 1)
+plt.hist(data_normal, bins=30, alpha=0.7, color='blue', edgecolor='black')
+plt.title('Normal Distribution')
+
+plt.subplot(2, 3, 2)
+plt.hist(data_pos_skewed, bins=30, alpha=0.7, color='red', edgecolor='black')
+plt.title('Positively Skewed Distribution')
+
+plt.subplot(2, 3, 6)
+plt.hist(data_neg_skewed, bins=30, alpha=0.7, color='cyan', edgecolor='black')
+plt.title('Negatively Skewed Distribution')
+
+plt.subplot(2, 3, 3)
+plt.hist(data_uniform, bins=30, alpha=0.7, color='green', edgecolor='black')
+plt.title('Uniform Distribution')
+
+plt.subplot(2, 3, 4)
+plt.hist(data_log_normal, bins=30, alpha=0.7, color='purple', edgecolor='black')
+plt.title('Log-Normal Distribution')
+
+plt.subplot(2, 3, 5)
+plt.hist(data_bimodal_1, bins=30, alpha=0.5, color='orange', edgecolor='black', label='Distribution 1')
+plt.hist(data_bimodal_2, bins=30, alpha=0.5, color='yellow', edgecolor='black', label='Distribution 2')
+plt.title('Bimodal Distribution')
+plt.legend()
+
+plt.tight_layout()
+plt.show()

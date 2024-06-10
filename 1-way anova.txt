@@ -1,0 +1,24 @@
+import numpy as np
+import scipy.stats as stats
+
+# Given data
+machine_1 = [50, 55, 52, 53, 54]
+machine_2 = [58, 59, 60, 62, 61]
+machine_3 = [65, 67, 64, 66, 68]
+
+# Combine data
+data = [machine_1, machine_2, machine_3]
+
+# Perform one-way ANOVA
+f_statistic, p_value = stats.f_oneway(machine_1, machine_2, machine_3)
+
+# Output results
+print(f"F-Statistic: {f_statistic}")
+print(f"P-Value: {p_value}")
+
+# Decision based on significance level
+alpha = 0.05
+if p_value < alpha:
+    print("Reject the null hypothesis.")
+else:
+    print("Fail to reject the null hypothesis.")

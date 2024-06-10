@@ -1,0 +1,46 @@
+import numpy as np
+from scipy.stats import chi2_contingency
+
+# Data
+strategy_A = [85, 78, 92, 88, 76]
+strategy_B = [90, 82, 89, 91, 77]
+strategy_C = [79, 85, 87, 84, 80]
+
+# Combine data
+data = strategy_A + strategy_B + strategy_C
+
+# Calculate overall median
+overall_median = np.median(data)
+
+# Categorize data
+def categorize(x, median):
+    if x > median:
+        return 1
+    elif x < median:
+        return -1
+    else:
+        return 0
+
+strategy_A_categorized = [categorize(x, overall_median) for x in strategy_A]
+strategy_B_categorized = [categorize(x, overall_median) for x in strategy_B]
+strategy_C_categorized = [categorize(x, overall_median) for x in strategy_C]
+
+# Create contingency table
+contingency_table = [
+    [strategy_A_categorized.count(1), strategy_A_categorized.count(0), strategy_A_categorized.count(-1)],
+    [strategy_B_categorized.count(1), strategy_B_categorized.count(0), strategy_B_categorized.count(-1)],
+    [strategy_C_categorized.count(1), strategy_C_categorized.count(0), strategy_C_categorized.count(-1)]
+]
+
+# Perform chi-square test
+chi2, p_value, _, _ = chi2_contingency(contingency_table)
+
+print(f"Chi-Square Statistic: {chi2}")
+print(f"P-Value: {p_value}")
+
+# Interpretation
+alpha = 0.05
+if p_value < alpha:
+    print("Reject the null hypothesis. There is a significant difference in medians between the strategies.")
+else:
+    print("Fail to reject the null hypothesis. There is no significant difference in medians between the strategies.")
